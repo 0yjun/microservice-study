@@ -11,7 +11,7 @@ spring:
             predicates:
               - Path=/first-service/**
             filters:
-              - CustomFilter
+              CustomFilter
 #              - AddRequestHeader=first-request, first-request-header2
 #              - AddResponseHeader=first-response, first-response-header2
 
@@ -20,7 +20,13 @@ spring:
             predicates:
               - Path=/second-service/**
             filters:
-              - CustomFilter
+              - name: CustomFilter
+              - name: LoggingFilter
+                args:
+                  baseMessage: spring cloud global filter
+                  preLogger: true
+                  PostLogger: true
+
 #              - AddRequestHeader=second-request, second-request-header2
 #              - AddResponseHeader=second-response, second-response-header2
       default-filters:
