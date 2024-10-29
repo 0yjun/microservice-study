@@ -7,7 +7,7 @@ router.get("/welcome", (req, res) => {
 
 router.get("/message", (req, res) => {
   const header = req.header("third-request");
-  console.loog(header);
+  console.log(header);
   res.send("third service");
 });
 

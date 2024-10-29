@@ -14,6 +14,9 @@ import reactor.core.publisher.Mono;
 @Component
 @Slf4j
 public class LoggingFilter extends AbstractGatewayFilterFactory<LoggingFilter.Config> {
+    public LoggingFilter(){
+        super(LoggingFilter.Config.class);
+    }
 
     @Override
     public GatewayFilter apply(Config config) {

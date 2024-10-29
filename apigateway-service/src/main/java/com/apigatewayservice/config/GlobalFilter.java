@@ -37,8 +37,8 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
 
     @Data
     public static class Config{
-        private String BaseMessage;
-        private boolean PreLogger;
-        private boolean PostLogger;
+        private String baseMessage;
+        private boolean preLogger;
+        private boolean postLogger;
     }
 }
