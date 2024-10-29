@@ -49,7 +49,7 @@ public class LoggingFilter extends AbstractGatewayFilterFactory<LoggingFilter.Co
     }
 
     @Data
-    public class Config{
+    public static class Config{
         private String baseMessage;
         private boolean preLogger;
         private boolean postLogger;
