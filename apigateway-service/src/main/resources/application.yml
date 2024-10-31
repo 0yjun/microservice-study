@@ -41,6 +41,17 @@ spring:
                 postLogger: true
       #              - AddRequestHeader=second-request, second-request-header2
       #              - AddResponseHeader=second-response, second-response-header2
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/user-service/**
+          filters:
+            - name: CustomFilter
+            - name: LoggingFilter
+              args:
+                baseMessage: user-service
+                preLogger: true
+                postLogger: true
       default-filters:
         - name: GlobalFilter
           args:
