@@ -20,7 +20,7 @@ public class UserEntity {
     private String email;
     @Column(nullable = false, length = 50)
     private String name;
-    @Column(nullable = false, length = 20, unique = true)
+    @Column(nullable = false, length = 200, unique = true)
     private String userId;
     @Column(nullable = false, length = 20)
     private String encryptedPwd;
