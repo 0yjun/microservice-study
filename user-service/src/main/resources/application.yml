@@ -2,13 +2,8 @@
 spring:
   application:
     name: user-service
-    profiles:
-      default: window
-  datasource:
-    url: jdbc:h2:tcp://localhost/~/test
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: 1234
+  profiles:
+    active: mac
   jpa:
     show-sql: true
     hibernate:

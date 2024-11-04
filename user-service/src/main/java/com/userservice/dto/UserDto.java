@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class UserDto {
     private String email;
@@ -12,4 +14,5 @@ public class UserDto {
     private String userId;
     private String createAt;
     private String encryptedPwd;
+    private List<ResponseOrder> orders;
 }

@@ -20,9 +20,9 @@ public class UserEntity {
     private String email;
     @Column(nullable = false, length = 50)
     private String name;
-    @Column(nullable = false, length = 200, unique = true)
+    @Column(nullable = false, unique = true)
     private String userId;
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false)
     private String encryptedPwd;
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
