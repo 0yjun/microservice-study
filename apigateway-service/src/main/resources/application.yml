@@ -11,8 +11,6 @@ spring:
           predicates:
             - Path=/first-service/**
           filters: CustomFilter
-        #              - AddRequestHeader=first-request, first-request-header2
-        #              - AddResponseHeader=first-response, first-response-header2
 
         - id: second-service
           uri: lb://second-service
@@ -25,8 +23,6 @@ spring:
                 baseMessage: spring cloud global filter
                 preLogger: true
                 postLogger: true
-        #              - AddRequestHeader=second-request, second-request-header2
-        #              - AddResponseHeader=second-response, second-response-header2
 
         - id: third-service
           uri: lb://third-service
@@ -39,8 +35,8 @@ spring:
                 baseMessage: spring cloud global filter
                 preLogger: true
                 postLogger: true
-      #              - AddRequestHeader=second-request, second-request-header2
-      #              - AddResponseHeader=second-response, second-response-header2
+        #              - AddRequestHeader=second-request, second-request-header2
+        #              - AddResponseHeader=second-response, second-response-header2
         - id: user-service
           uri: lb://user-service
           predicates:
@@ -52,6 +48,19 @@ spring:
                 baseMessage: user-service
                 preLogger: true
                 postLogger: true
+
+        - id: catalog-service
+          uri: lb://catalog-service
+          predicates:
+            - Path=/catalog-service/**
+          filters:
+            - name: CustomFilter
+            - name: LoggingFilter
+              args:
+                baseMessage: catalog-service
+                preLogger: true
+                postLogger: true
+
       default-filters:
         - name: GlobalFilter
           args:

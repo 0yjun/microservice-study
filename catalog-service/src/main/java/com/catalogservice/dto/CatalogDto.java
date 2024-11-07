@@ -1,16 +1,11 @@
 package com.catalogservice.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.Data;
-import org.hibernate.annotations.ColumnDefault;
 
-import java.sql.Date;
+import java.io.Serializable;
 
 @Data
-public class CatalogDto {
+public class CatalogDto implements Serializable {
     private String productId;
     private Integer qty;
     private Integer stock;

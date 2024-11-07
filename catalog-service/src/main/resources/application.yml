@@ -1,9 +1,9 @@
 
 spring:
   application:
-    name: user-service
+    name: catalog-service
   profiles:
-    active: mac
+    active: window
   jpa:
     show-sql: true
     hibernate:
@@ -11,6 +11,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
+    generate-ddl: true
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
 
 greeting:
   message: welcome to sinple e-comerce
