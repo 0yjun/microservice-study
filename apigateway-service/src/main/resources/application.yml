@@ -61,6 +61,18 @@ spring:
                 preLogger: true
                 postLogger: true
 
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/order-service/**
+          filters:
+            - name: CustomFilter
+            - name: LoggingFilter
+              args:
+                baseMessage: order-service
+                preLogger: true
+                postLogger: true
+
       default-filters:
         - name: GlobalFilter
           args:

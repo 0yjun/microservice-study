@@ -15,8 +15,4 @@ public class RequestOrder implements Serializable {
     String productId;
     Integer qty;
     Integer unitPrice;
-    Integer totalPrice;
-    LocalDateTime createAt;
-
-    private String orderId;
 }

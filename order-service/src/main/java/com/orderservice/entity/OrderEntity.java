@@ -22,7 +22,7 @@ public class OrderEntity implements Serializable {
     @Column(nullable = false)
     private Integer unitPrice;
     @Column(nullable = false)
-    private Integer Price;
+    private Integer totalPrice;
 
     @Column(nullable = false)
     private String userId;
