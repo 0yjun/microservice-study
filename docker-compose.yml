@@ -1,0 +1,39 @@
+version: "3.8"
+services:
+  apigateway-service:
+    build: ./apigateway-service
+    ports:
+      - "8000:8000" # 수정된 부분
+    environment:
+      - SPRING_PROFILES_ACTIVE=window
+    depends_on:
+      - discovery-service
+      - user-service
+      - order-service
+      - catalog-service
+
+  discovery-service:
+    build: ./discovery-service
+    ports:
+      - "8761:8761"
+
+  catalog-service:
+    build: ./catalog-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=window
+    depends_on:
+      - discovery-service
+
+  user-service:
+    build: ./user-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=window
+    depends_on:
+      - discovery-service
+
+  order-service:
+    build: ./order-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=window
+    depends_on:
+      - discovery-service
