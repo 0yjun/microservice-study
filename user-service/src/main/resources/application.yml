@@ -11,10 +11,12 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.H2Dialect
+  #config
+  config:
+    import: optional:configserver:http://localhost:8888
   cloud:
     config:
-      name: ecomerce
-      import:
+      name: ecommerce
 
 greeting:
   message: welcome to sinple e-comerce
@@ -29,8 +31,8 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka
 
-token:
-  expiration_time: 300000
-  secret: s3cureKeyForJWTTokenGeneration12345678901234567890
+#token:
+#  expiration_time: 300000
+#  secret: s3cureKeyForJWTTokenGeneration12345678901234567890
 
 
