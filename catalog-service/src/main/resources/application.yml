@@ -1,9 +1,13 @@
-
 spring:
   application:
     name: catalog-service
   profiles:
-    active: window
+    active: mac
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/test
+    driver-class-name: org.h2.Driver
+    username: sa
+
   jpa:
     show-sql: true
     hibernate:
@@ -13,6 +17,7 @@ spring:
         format_sql: true
     generate-ddl: true
     defer-datasource-initialization: true
+    dialect: org.hibernate.dialect.H2Dialect
   sql:
     init:
       mode: always

@@ -4,8 +4,6 @@ services:
     build: ./apigateway-service
     ports:
       - "8000:8000" # 수정된 부분
-    environment:
-      - SPRING_PROFILES_ACTIVE=window
     depends_on:
       - discovery-service
       - user-service
@@ -19,21 +17,18 @@ services:
 
   catalog-service:
     build: ./catalog-service
-    environment:
-      - SPRING_PROFILES_ACTIVE=window
+
     depends_on:
       - discovery-service
 
   user-service:
     build: ./user-service
-    environment:
-      - SPRING_PROFILES_ACTIVE=window
+
     depends_on:
       - discovery-service
 
   order-service:
     build: ./order-service
-    environment:
-      - SPRING_PROFILES_ACTIVE=window
+
     depends_on:
       - discovery-service

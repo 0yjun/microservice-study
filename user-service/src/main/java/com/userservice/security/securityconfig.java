@@ -19,9 +19,9 @@ import org.springframework.security.web.access.expression.WebExpressionAuthoriza
 @Configuration
 @EnableWebSecurity
 public class securityconfig {
-    private AuthenticationConfiguration authenticationConfiguration;
-    private UserService userService;
-    private Environment env;
+    private final AuthenticationConfiguration authenticationConfiguration;
+    private final UserService userService;
+    private final Environment env;
 
     @Autowired
     public securityconfig(
@@ -36,7 +36,7 @@ public class securityconfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-        http.csrf((csrf)->csrf.disable());
+        http.csrf(AbstractHttpConfigurer::disable);
 //                .authorizeHttpRequests((request)
 //                        ->request.requestMatchers("/user-service/**")
 //                        .permitAll()
@@ -45,7 +45,8 @@ public class securityconfig {
         http
                 .authorizeHttpRequests(author ->
                         author.requestMatchers("/**")
-                                .access(new WebExpressionAuthorizationManager("hasIpAddress('127.0.0.1')"))
+                                .permitAll()
+                                //.access(new WebExpressionAuthorizationManager("hasIpAddress('127.0.0.1')"))
                 )
                 .addFilter(getAuthenticationFiler());
         http.formLogin(AbstractHttpConfigurer::disable);
@@ -53,13 +54,7 @@ public class securityconfig {
     }
 
     private Filter getAuthenticationFiler() throws Exception {
-        AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManager());
-        return authenticationFilter;
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
+        return new AuthenticationFilter(authenticationManager(), userService, env);
     }
 
     @Bean

@@ -4,6 +4,7 @@ import com.userservice.dto.ResponseOrder;
 import com.userservice.dto.UserDto;
 import com.userservice.entity.UserEntity;
 import com.userservice.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,11 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.logging.Logger;
 
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -41,15 +45,31 @@ public class UserServiceImpl implements UserService{
         userEntity.setEncryptedPwd(passwordEncoder.encode(userDto.getPwd()));
         userRepository.save(userEntity);
 
-        UserDto resultUserDto = mapper.map(userEntity,UserDto.class);
-        return resultUserDto;
+        return mapper.map(userEntity,UserDto.class);
     }
 
     @Override
     public UserDto getUserByUserId(String userId)  {
+        log.info("getUserByUserId {}",userId);
         UserEntity findUserEntity =  userRepository
                 .findByUserId(userId)
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(()->new NoSuchElementException("일치하는 값이 없습니다."));
+
+        log.info(String.valueOf(findUserEntity.toString()));
+        UserDto userDto = new ModelMapper().map(findUserEntity, UserDto.class);
+        List<ResponseOrder> orders = new ArrayList<>();
+        userDto.setOrders(orders);
+        return userDto;
+    }
+
+    @Override
+    public UserDto getUserByEmail(String username) {
+        log.info("getUserByUserId {}",username);
+        UserEntity findUserEntity =  userRepository
+                .findByEmail(username)
+                .orElseThrow(()->new NoSuchElementException("일치하는 값이 없습니다."));
+
+        log.info(String.valueOf(findUserEntity.toString()));
         UserDto userDto = new ModelMapper().map(findUserEntity, UserDto.class);
         List<ResponseOrder> orders = new ArrayList<>();
         userDto.setOrders(orders);
@@ -63,8 +83,13 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity userEntity = userRepository.findByEmail(username)
-                .orElseThrow(()->new UsernameNotFoundException("유저를 찾을수 없습니다"+username));
+        log.info("loadUser by Username called");
+        Optional<UserEntity> optionalUserEntity = userRepository.findByEmail(username);
+        if(optionalUserEntity.isEmpty()){
+            log.info("email not found");
+            throw new UsernameNotFoundException("user not found");
+        }
+        UserEntity userEntity = optionalUserEntity.get();
         return new User(
                 userEntity.getEmail(),
                 userEntity.getEncryptedPwd()

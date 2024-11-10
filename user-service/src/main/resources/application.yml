@@ -2,7 +2,7 @@ spring:
   application:
     name: user-service
   profiles:
-    active: window
+    active: mac
   jpa:
     show-sql: true
     hibernate:
@@ -10,6 +10,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
 
 greeting:
   message: welcome to sinple e-comerce
@@ -23,3 +24,9 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://localhost:8761/eureka
+
+token:
+  expiration_time: 300000
+  secret: s3cureKeyForJWTTokenGeneration12345678901234567890
+
+

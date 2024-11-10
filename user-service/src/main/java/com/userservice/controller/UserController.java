@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/user-service")
+@RequestMapping("/")
 @Slf4j
 public class UserController {
     private final UserService userService;
@@ -35,7 +35,7 @@ public class UserController {
         this.env = env;
     }
 
-    @GetMapping("health-check")
+    @GetMapping("/health-check")
     public String status(){
         return  String.format("this port is %s", env.getProperty("local.server.port"));
     };
@@ -85,7 +85,4 @@ public class UserController {
         ResponseUser responseuser = mapper.map(userDto, ResponseUser.class);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseuser);
     }
-
-
-
 }
