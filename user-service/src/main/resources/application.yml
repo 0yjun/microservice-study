@@ -11,6 +11,10 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.H2Dialect
+  cloud:
+    config:
+      name: ecomerce
+      import:
 
 greeting:
   message: welcome to sinple e-comerce
