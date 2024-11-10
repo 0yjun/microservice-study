@@ -43,10 +43,11 @@ public class securityconfig {
 //                        .anyRequest().authenticated()
 //                )
         http
-                .authorizeHttpRequests(author ->
-                        author.requestMatchers("/**")
-                                .permitAll()
-                                //.access(new WebExpressionAuthorizationManager("hasIpAddress('127.0.0.1')"))
+                .authorizeHttpRequests(authorize -> authorize
+                        // `/actuator/**` 경로는 인증 없이 허용
+                        .requestMatchers("/actuator/**","/health-check","/users").permitAll()
+                        // 다른 모든 요청은 인증 필요
+                        .anyRequest().authenticated()
                 )
                 .addFilter(getAuthenticationFiler());
         http.formLogin(AbstractHttpConfigurer::disable);

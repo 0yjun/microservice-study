@@ -2,7 +2,7 @@ spring:
   application:
     name: user-service
   profiles:
-    active: mac
+    active: dev
   jpa:
     show-sql: true
     hibernate:
@@ -35,4 +35,8 @@ eureka:
 #  expiration_time: 300000
 #  secret: s3cureKeyForJWTTokenGeneration12345678901234567890
 
-
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, httptrace, busrefresh, info, metrics, prometheus

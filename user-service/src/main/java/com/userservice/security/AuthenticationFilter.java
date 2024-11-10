@@ -55,6 +55,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                     new ArrayList<>()
             );
             logger.info("authToeken: {} " + authToken.toString());
+            logger.info("token.secret {}"+ env.getProperty("token.secret"));
             return getAuthenticationManager().authenticate(
                     authToken
             );

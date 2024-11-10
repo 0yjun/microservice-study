@@ -3,7 +3,14 @@ server:
 spring:
   application:
     name: apigateway-service
+  profiles:
+    active: dev
+    #config
+  config:
+    import: optional:configserver:http://localhost:8888
   cloud:
+    config:
+      name: ecommerce
     gateway:
       routes:
         - id: user-service
@@ -15,7 +22,7 @@ spring:
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
 
-        # 유저 등록
+        # user 유저 등록
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
@@ -25,7 +32,17 @@ spring:
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
 
-        #GET 조회
+        #user actuator 조회
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/actuator/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment} # /user-service/(?<segment>.*) -> /$\{segment}
+
+        #user GET 조회
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
@@ -106,3 +123,9 @@ eureka:
 
 token:
   secret: s3cureKeyForJWTTokenGeneration12345678901234567890
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, httptrace, busrefresh, info, metrics, prometheus
