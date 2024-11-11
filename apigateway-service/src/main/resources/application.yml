@@ -4,7 +4,7 @@ spring:
   application:
     name: apigateway-service
   profiles:
-    active: dev
+    active: window
     #config
   config:
     import: optional:configserver:http://localhost:8888
