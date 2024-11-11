@@ -25,6 +25,16 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-config-server'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    //actuator
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp:4.1.2'
+    //implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
+
+    //rabbitmq
+    implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp:4.1.2'
+    implementation 'org.springframework.cloud:spring-cloud-stream-binder-rabbit'
+
 }
 
 dependencyManagement {

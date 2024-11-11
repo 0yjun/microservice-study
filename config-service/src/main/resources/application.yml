@@ -11,3 +11,15 @@ spring:
           #uri: file://Users/an-yeongjun/study/microservice-study/git-local-repo
           uri: file:///C:\Users\안영준\study\microservice-study\git-local-repo
           default-label: master
+  #rabbitmq 추가
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+management:
+  endpoints:
+    web:
+      expose:
+        include: health, busrefresh

@@ -1,6 +1,15 @@
 spring:
   application:
     name: user-service
+
+  #rabbitmq 추가
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+  #spring-cloud-config profile
   profiles:
     active: window
   jpa:
@@ -11,12 +20,13 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.H2Dialect
-  #config
+  #spring-cloud-config
   config:
     import: optional:configserver:http://localhost:8888
   cloud:
     config:
       name: ecommerce
+
 
 greeting:
   message: welcome to sinple e-comerce
@@ -39,4 +49,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans, httptrace, busrefresh, info, metrics, prometheus
+        include: refresh, health, beans, httptrace, busrefresh, info, metrics, prometheus, busrefresh
