@@ -2,7 +2,7 @@ spring:
   application:
     name: order-service
   profiles:
-    active: mac
+    active: window
   jpa:
     show-sql: true
     hibernate:

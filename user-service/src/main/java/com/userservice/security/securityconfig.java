@@ -15,6 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.expression.WebExpressionAuthorizationManager;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -45,11 +47,11 @@ public class securityconfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         // `/actuator/**` 경로는 인증 없이 허용
-                        .requestMatchers("/actuator/**","/health-check","/users").permitAll()
+                        .requestMatchers("/actuator/**","/health-check","/users/**").permitAll()
                         // 다른 모든 요청은 인증 필요
                         .anyRequest().authenticated()
                 )
-                .addFilter(getAuthenticationFiler());
+                .addFilterBefore(getAuthenticationFiler(), UsernamePasswordAuthenticationFilter.class);
         http.formLogin(AbstractHttpConfigurer::disable);
         return http.build();
     }

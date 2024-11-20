@@ -49,4 +49,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans, httptrace, busrefresh, info, metrics, prometheus, busrefresh
+        include: refresh, health, beans, httptrace, busrefresh, info, metrics, prometheus
+
+order_service:
+  url: http://order-service/order-service/%s/orders
