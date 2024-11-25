@@ -31,13 +31,26 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
     //h2
-    runtimeOnly 'com.h2database:h2'
+    //runtimeOnly 'com.h2database:h2'
+
+    //mysql
+    implementation 'mysql:mysql-connector-java:8.0.33'
+
     //jpa
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.2")
     //validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.modelmapper:modelmapper:2.1.1'
+
+    //config
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    //implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
+    implementation 'org.springframework.cloud:spring-cloud-config-client'
+
+    //mariadb
+    implementation 'org.mariadb.jdbc:mariadb-java-client:3.3.3'
 }
 
 dependencyManagement {

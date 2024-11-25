@@ -25,7 +25,9 @@ spring:
     import: optional:configserver:http://localhost:8888
   cloud:
     config:
-      name: ecommerce
+      name: user-service
+    refresh:
+      extra-refreshable: com.zaxxer.hikari.HikariDataSource
 
 
 greeting:
