@@ -9,15 +9,6 @@ spring:
     username: guest
     password: guest
 
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        format_sql: true
-        dialect: org.hibernate.dialect.MySQL8Dialect
-
   #spring-cloud-config
   config:
     import: optional:configserver:http://localhost:8888
