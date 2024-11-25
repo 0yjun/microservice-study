@@ -23,6 +23,13 @@ spring:
     config:
       name: order-service
 
+  #spring-cloud-config
+  config:
+    import: optional:configserver:http://localhost:8888
+  cloud:
+    config:
+      name: order-service
+
 greeting:
   message: welcome to sinple e-comerce
 server:
