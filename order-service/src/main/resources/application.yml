@@ -12,16 +12,11 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
-  #spring-cloud-config
-  config:
-    import: optional:configserver:http://localhost:8888
-  cloud:
-    config:
-      name: order-service
+        dialect: org.hibernate.dialect.MySQL8Dialect
 
   #spring-cloud-config
   config:
