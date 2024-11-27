@@ -12,25 +12,27 @@ import java.time.LocalDateTime;
 @Table(name = "orders")
 public class OrderEntity implements Serializable {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 120, unique = true)
-    private String productId;
-    @Column(nullable = false)
-    private Integer qty;
-    @Column(nullable = false)
-    private Integer unitPrice;
-    @Column(nullable = false)
-    private Integer totalPrice;
-
-    @Column(nullable = false)
-    private String userId;
-
-    @Column(nullable = false, unique = true)
+    @Column(name = "orders_id", nullable = false, unique = true)
     private String orderId;
 
-    @Column(nullable = false)
-    @CreationTimestamp
-    private LocalDateTime createAt;
+    @Column(name = "pdt_id")
+    private String productId;
+
+//    @Column(name = "pdt_name", nullable = false)
+//    private String productName;
+
+    @Column(name = "stock", nullable = false)
+    private int stock;
+
+    @Column(name = "unit_price", nullable = false)
+    private int unitPrice;
+
+    @Column(name = "total_price", nullable = false)
+    private int totalPrice;
+
+    @Column(name = "usr_id", nullable = false)
+    private String userId;
 }

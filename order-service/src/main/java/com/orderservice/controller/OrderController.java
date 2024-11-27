@@ -5,6 +5,7 @@ import com.orderservice.dto.RequestOrder;
 import com.orderservice.dto.ResponseOrder;
 import com.orderservice.entity.OrderEntity;
 import com.orderservice.messagequeue.KafkaProducer;
+import com.orderservice.messagequeue.OrderProducer;
 import com.orderservice.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -16,24 +17,27 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/order-service")
 public class OrderController {
     private final OrderService orderService;
     private final Environment env;
-
     private final KafkaProducer kafkaProducer;
+    private final OrderProducer orderProducer;
 
 
     public OrderController(
             OrderService orderService,
             Environment env,
-            KafkaProducer kafkaProducer
+            KafkaProducer kafkaProducer,
+            OrderProducer orderProducer
     ) {
         this.orderService = orderService;
         this.env = env;
         this.kafkaProducer = kafkaProducer;
+        this.orderProducer = orderProducer;
     }
 
     @GetMapping("/health-check")
@@ -75,13 +79,22 @@ public class OrderController {
 
         OrderDto orderDto = mapper.map(orderDetails, OrderDto.class);
         orderDto.setUserId(userId);
-        OrderDto createOrder = orderService.createOrder(orderDto);
+
+        /* jpa code */
+        //OrderDto createOrder = orderService.createOrder(orderDto);
+        //ResponseOrder responseOrder = mapper.map(orderDto, ResponseOrder.class);
+        /* jpa code */
+
+        /* kafka code */
+        orderDto.setOrderId(UUID.randomUUID().toString());
+        orderDto.setTotalPrice(orderDetails.getQty() * orderDetails.getUnitPrice());
+        /* kafka code */
+
+        /* send this order to the kafka */
+        kafkaProducer.send("example-catalog-topic",orderDto);
+        orderProducer.send("orders",orderDto);
 
         ResponseOrder responseOrder = mapper.map(orderDto, ResponseOrder.class);
-
-
-        /* send this order from kafka*/
-        kafkaProducer.send("example-catalog-topic",orderDto);
         return ResponseEntity.status(HttpStatus.OK).body(responseOrder);
     }
 }
