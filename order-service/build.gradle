@@ -51,6 +51,9 @@ dependencies {
 
     //mariadb
     implementation 'org.mariadb.jdbc:mariadb-java-client:3.3.3'
+
+    //kafka
+    implementation 'org.springframework.kafka:spring-kafka'
 }
 
 dependencyManagement {

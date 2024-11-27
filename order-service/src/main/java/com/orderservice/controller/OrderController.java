@@ -4,6 +4,7 @@ import com.orderservice.dto.OrderDto;
 import com.orderservice.dto.RequestOrder;
 import com.orderservice.dto.ResponseOrder;
 import com.orderservice.entity.OrderEntity;
+import com.orderservice.messagequeue.KafkaProducer;
 import com.orderservice.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -22,13 +23,17 @@ public class OrderController {
     private final OrderService orderService;
     private final Environment env;
 
+    private final KafkaProducer kafkaProducer;
+
 
     public OrderController(
             OrderService orderService,
-            Environment env
+            Environment env,
+            KafkaProducer kafkaProducer
     ) {
         this.orderService = orderService;
         this.env = env;
+        this.kafkaProducer = kafkaProducer;
     }
 
     @GetMapping("/health-check")
@@ -73,6 +78,10 @@ public class OrderController {
         OrderDto createOrder = orderService.createOrder(orderDto);
 
         ResponseOrder responseOrder = mapper.map(orderDto, ResponseOrder.class);
+
+
+        /* send this order from kafka*/
+        kafkaProducer.send("example-catalog-topic",orderDto);
         return ResponseEntity.status(HttpStatus.OK).body(responseOrder);
     }
 }
