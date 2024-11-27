@@ -9,7 +9,9 @@ spring:
       server:
         git:
           #uri: file://Users/an-yeongjun/study/microservice-study/git-local-repo
-          uri: file:///C:\Users\안영준\study\microservice-study\git-local-repo
+          #uri: file:///C:\Users\안영준\study\microservice-study\git-local-repo
+          #uri: https://github.com/0yjun/microservice-study-secret.git
+          uri: ssh://git@github.com/0yjun/microservice-study-secret.git
           default-label: master
   #rabbitmq 추가
   rabbitmq:
