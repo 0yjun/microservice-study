@@ -49,6 +49,9 @@ dependencies {
 	//rabbitmq
 	implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp:4.1.2'
 	implementation 'org.springframework.cloud:spring-cloud-stream-binder-rabbit'
+
+	//micrometer
+	implementation 'io.micrometer:micrometer-registry-prometheus:latest.release'
 }
 
 dependencyManagement {

@@ -5,6 +5,7 @@ import com.userservice.dto.ResponseUser;
 import com.userservice.dto.UserDto;
 import com.userservice.entity.UserEntity;
 import com.userservice.service.UserService;
+import io.micrometer.core.annotation.Timed;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -36,6 +37,7 @@ public class UserController {
     }
 
     @GetMapping("/health-check")
+    @Timed(value = "user.status", longTask = true)
     public String status(){
         return  String.format(
                 "this port is "+ env.getProperty("local.server.port")
@@ -46,6 +48,7 @@ public class UserController {
     };
 
     @GetMapping("/users")
+    @Timed(value = "user.users", longTask = true)
     public ResponseEntity<List<ResponseUser>> getUsers(){
         Iterable<UserEntity> userList = userService.getUserByAll();
         List<ResponseUser> result = new ArrayList<>();

@@ -54,6 +54,9 @@ dependencies {
 
     //kafka
     implementation 'org.springframework.kafka:spring-kafka'
+
+    //micrometer
+    implementation 'io.micrometer:micrometer-registry-prometheus:latest.release'
 }
 
 dependencyManagement {
